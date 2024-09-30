@@ -5,7 +5,7 @@ import java.util.*;
 
 public class VirtualSSD {
     private static final int LBA_SIZE = 100;
-    private static final String NAND_FILE = "C:\\Users\\User\\IdeaProjects\\SSD\\..\\nand.txt";
+    private static final String NAND_FILE = "../nand.txt";
     private static final String RESULT_FILE = "../result.txt";
     private static final String DEFAULT_VALUE = "0x00000000";
     private static final String VALUE_FORMAT = "^0x[0-9A-Fa-f]{8}$";
