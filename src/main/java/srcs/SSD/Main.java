@@ -1,5 +1,4 @@
 package srcs.SSD;
-<<<<<<< HEAD
 
 import java.util.Scanner;
 
@@ -30,30 +29,6 @@ public class Main {
             System.out.println("잘못된 명령어입니다.");
         }
         scanner.close();
-=======
-import java.io.*;
 
-public class Main {
-    public static void main(String[] args) {
-        // 1. 인자의 개수가 4개면 write
-        // 2. 인자의 개수가 3개면 read
-        // 공통적인 부분 -> LBA
-        if (args.length < 3) {
-            System.out.println("Usage: java Main <command> <LBA> [value]");
-            return;
-        }
-
-        int LBA = Integer.parseInt(args[1]);
-
-        if (args.length == 4) {
-            // Write operation
-            VirtualSSD.writeLBA(LBA, args[2]);
-        } else if (args.length == 3) {
-            // Read operation
-            VirtualSSD.readLBA(LBA);
-        } else {
-            System.out.println("Invalid number of arguments.");
-        }
->>>>>>> 6ab5b5f23b29f527691770f8e3575647bd231e80
     }
 }

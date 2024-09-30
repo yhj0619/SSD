@@ -1,6 +1,5 @@
 package srcs.SSD;
 
-<<<<<<< HEAD
 import java.io.*;
 import java.util.*;
 
@@ -98,8 +97,7 @@ public class VirtualSSD {
                 System.out.println("nand.txt 파일에 저장하는 동안 오류가 발생했습니다.");
                 e.printStackTrace();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("nand.txt 파일에 저장하는 동안 오류가 발생했습니다.");
             e.printStackTrace();
         }
@@ -112,28 +110,7 @@ public class VirtualSSD {
             bw.write(data);
         } catch (IOException e) {
             e.printStackTrace();
-=======
-public class VirtualSSD {
-    public static void main(String[] args) {
-        // 1. 인자의 개수가 4개면 write
-        // 2. 인자의 개수가 3개면 read
-        // 공통적인 부분 -> LBA
-        if (args.length < 3) {
-            System.out.println("Usage: java Main <command> <LBA> [value]");
-            return;
-        }
 
-        int LBA = Integer.parseInt(args[1]);
-
-        if (args.length == 4) {
-            // Write operation
-            VirtualSSD.writeLBA(LBA, args[2]);
-        } else if (args.length == 3) {
-            // Read operation
-            VirtualSSD.readLBA(LBA);
-        } else {
-            System.out.println("Invalid number of arguments.");
->>>>>>> 6ab5b5f23b29f527691770f8e3575647bd231e80
         }
     }
 }
