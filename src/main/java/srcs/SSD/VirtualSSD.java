@@ -61,8 +61,16 @@ public class VirtualSSD {
             System.out.println("유효하지 않은 LBA 번호입니다. LBA는 0부터 99까지 가능합니다.");
             return;
         }
+
+        // 기존 nand.txt 파일에서 데이터를 로드
+        loadFromNand();
+
+
         String data = ssdMemory.getOrDefault(lba, DEFAULT_VALUE);
         saveToResult(data);
+
+        // 콘솔 출력 (디버깅 및 확인용)
+        System.out.println("LBA: " + lba + "에서 읽은 데이터: " + data);
     }
 
     // LBA 번호의 유효성 체크

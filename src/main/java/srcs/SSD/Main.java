@@ -21,7 +21,10 @@ public class Main {
                 System.out.println("write done");
             } else if (tokens[1].equalsIgnoreCase("R") && tokens.length == 3) {
                 int lba = Integer.parseInt(tokens[2]);
+                System.out.println("lba: " + lba);
+
                 ssd.read(lba);
+                System.out.println("read done");
             } else {
                 System.out.println("잘못된 명령어입니다.");
             }
