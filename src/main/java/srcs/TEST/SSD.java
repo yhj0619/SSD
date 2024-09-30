@@ -1,5 +1,7 @@
 package srcs.TEST;
 
+import srcs.SSD.VirtualSSD; // 다른 패키지의 클래스 임포트
+
 import java.util.Scanner;
 
 public class SSD {
@@ -7,30 +9,24 @@ public class SSD {
     private static final String ERR = "Invalid command.";
     private static final int BUF_SIZE = 11;
 
+    // VirtualSSD 객체 생성
+    private static VirtualSSD virtualSSD = new VirtualSSD();
+
     public static boolean idxValidCheck(String idx) {
-        // #2. idx가 숫자인가
         int idxLen = idx.length();
-        // #2-1. idx 길이가 2자리를 넘어가면 false
         if (idxLen > 2) return false;
-        // #2-2 idx가 숫자가 아니면 false
         for (int i = 0; i < idxLen; i++) {
             if (idx.charAt(i) < '0' || idx.charAt(i) > '9')
                 return false;
         }
-        // #2-3 숫자 범위가 안맞으면 false
         int tmp = Integer.parseInt(idx);
         return tmp >= 0 && tmp <= 99;
     }
 
     public static boolean valValidCheck(String val) {
-        // #1. 넣을 값의 길이가 10인가
         int len = val.length();
-        if (len != 10)
-            return false;
-        // #2. val의 값이 숫자면 0~9사이인가? 알파벳이면 A~F 사이인가
-        if (val.charAt(0) != '0' || val.charAt(1) != 'x')
-            return false;
-
+        if (len != 10) return false;
+        if (val.charAt(0) != '0' || val.charAt(1) != 'x') return false;
         for (int i = 2; i < len; i++) {
             char ch = Character.toUpperCase(val.charAt(i));
             if ((ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'F'))
@@ -43,26 +39,21 @@ public class SSD {
 
     // nand.txt에 쓰기
     public static void writeSSD(int flag, String val) {
-        Scanner scanner = new Scanner(System.in);
-        String idx;
-        String tmp = "";
-
         if (flag == 1) {
-            // 반복하여 쓰기
             for (int i = 0; i <= 5; i++) {
-                String buf = String.format("ssd W %d %s", i, val);
-                executeCommand(buf);
+                // VirtualSSD의 write 메서드 사용
+                virtualSSD.write(i, val);
             }
         } else {
-            // 사용자 입력 처리
+            Scanner scanner = new Scanner(System.in);
             System.out.print("Enter index and value: ");
-            idx = scanner.next();
-            tmp = scanner.next();
+            String idx = scanner.next();
+            String tmp = scanner.next();
 
             if (valValidCheck(tmp) && idxValidCheck(idx)) {
                 int id = Integer.parseInt(idx);
-                String buf = String.format("ssd W %d %s", id, tmp);
-                executeCommand(buf);
+                // VirtualSSD의 write 메서드 사용
+                virtualSSD.write(id, tmp);
             } else {
                 System.out.println(ERR);
             }
@@ -70,36 +61,22 @@ public class SSD {
     }
 
     public static void readSSD(int flag) {
-        Scanner scanner = new Scanner(System.in);
-        String idx;
-
         if (flag == 1) {
             for (int i = 0; i <= 5; i++) {
-                String buf = String.format("ssd R %d", i);
-                executeCommand(buf);
+                // VirtualSSD의 read 메서드 사용
+                virtualSSD.read(i);
             }
         } else {
+            Scanner scanner = new Scanner(System.in);
             System.out.print("Enter index: ");
-            idx = scanner.next();
+            String idx = scanner.next();
             if (idxValidCheck(idx)) {
                 int id = Integer.parseInt(idx);
-                String buf = String.format("ssd R %d", id);
-                executeCommand(buf);
+                // VirtualSSD의 read 메서드 사용
+                virtualSSD.read(id);
             } else {
                 System.out.println(ERR);
             }
-        }
-    }
-
-    private static void executeCommand(String command) {
-        try {
-            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", command);
-            Process process = processBuilder.start();
-            process.waitFor();
-            // 프로세스의 출력 처리
-            // OutputStream, InputStream 등으로 결과를 가져와 처리 가능
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
