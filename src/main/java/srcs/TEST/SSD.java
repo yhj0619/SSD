@@ -40,13 +40,13 @@ public class SSD {
     // nand.txt에 쓰기
     public static void writeSSD(int flag, String val) {
         if (flag == 1) {
-            for (int i = 0; i <= 5; i++) {
+            for (int i = 0; i < 5; i++) {
                 // VirtualSSD의 write 메서드 사용
                 virtualSSD.write(i, val);
             }
         } else {
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter index and value: ");
+            System.out.print("설마 여기서 되는겨? Enter index and value: ");
             String idx = scanner.next();
             String tmp = scanner.next();
 
